@@ -1,0 +1,68 @@
+<html>
+<head>
+<style type="text/css">
+	#demo {
+	    height: 105px;
+   	 	overflow: hidden;
+	}
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+</head>	
+<body>
+	<div id="demo">
+		<ul>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+			<li>1</li>
+		<ul>
+	</div>
+	<div>
+		<input type="button" name="more" class="more" value="Show More">
+		<input type="button" name="less" class="less" value="Show Less" style="display: none">
+	</div>
+</body>
+<script type="text/javascript">
+	var count = 1;
+	$(".more").on("click", function() {
+		debugger;
+		count++;
+		var heightValue = count * 105;
+		if(count == 3) {
+			$("#demo").css("height", heightValue+"px");
+			$(".more").css("display", "none");
+			$(".less").css("display", "block");
+		}
+		else {
+			$("#demo").css("height", heightValue+"px");
+		}
+	});
+	$(".less").on("click", function() {
+		debugger;
+		count = 1;
+		var heightValue = count * 105;
+		$("#demo").css("height", heightValue+"px");
+		$(".more").css("display", "block");
+		$(".less").css("display", "none");
+	});
+</script>
+</html>

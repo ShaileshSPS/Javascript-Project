@@ -1,0 +1,31 @@
+<html>
+<head>
+<script>
+function binarySearch(arr,search) {
+    let left = 0;
+    let right = arr.length - 1;
+    while (left <= right) {
+        var mid = Math.floor((left+right) / 2);
+        if (arr[mid] === search) {
+            return mid;
+        }
+        if (arr[mid] < search) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+   return -1;
+}
+var arr=[1,2,3,4,5];
+var search= 4;
+var result=binarySearch(arr,search);
+if(result ==-1){
+console.log("not found");
+}
+else {
+console.log("found at "+(result+1)+" position");
+}
+</script>
+</head>
+</html>

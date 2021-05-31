@@ -1,0 +1,21 @@
+<html>
+<head>
+<script>
+   var xmlhttp = new XMLHttpRequest();
+   xmlhttp.onreadystatechange = function() {
+   	if (this.readyState == 4 && this.status == 200) {
+		var obj=JSON.parse(this.responseText);
+       		document.getElementById("txt").innerHTML = obj.name;
+		document.getElementById("txtAge").innerHTML = obj.age;
+   	}
+   };
+   xmlhttp.open("GET", "http://52.66.13.209:7000/shailesh", true);
+   xmlhttp.send();
+</script>
+</head>
+<body>
+
+<h1><p align="center"><b>Ajax Call</b></p></h1><br/><hr>
+<p>Hello <b><span id="txt"></span></b> your age is <b><span id="txtAge"></span></b></p>
+</body>
+</html>

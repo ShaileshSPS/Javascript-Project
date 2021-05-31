@@ -1,0 +1,22 @@
+<Html>
+<script>
+function update(val) {
+for(i=0;i<=4;i++){
+	document.getElementById("dropdown").options[i].disabled = false;
+}
+document.getElementById("dropdown").options[val.value].disabled = true;
+}
+</script>
+<body>
+Choose :
+<form id="aForm">
+  <select name="aSelect" id="dropdown" onchange="update(this)">
+	  <option value="0">aaaaaaaaaaaaa</option>
+	  <option value="1">bbbbbbbbbbbb</option>
+	  <option value="2">cccccccccccc</option>
+	  <option value="3">ddddddddddd</option>
+	  <option value="4">eeeeeeeeeee</option>
+  </select>
+</form>
+</body>
+</Html>

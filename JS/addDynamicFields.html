@@ -1,0 +1,44 @@
+<html>
+<head>
+<style type="text/css">
+	.all {
+	    display: inline-grid;
+	} 
+	.button_div {
+	   position: fixed;
+	   top: 1rem;
+	   left: 14rem;
+	}
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+</head>	
+<body>
+	<div id="demo">
+		<form name = "all" class="all">
+			<input type="text" name="text">
+		</form>
+	</div>
+	<div class="button_div">
+		<input type="button" name="add" class="add" value="Add More">
+		<input type="button" name="remove" class="remove" value="Remove More">
+	</div>
+</body>
+<script type="text/javascript">
+	var count = 1;
+	$(".add").on("click", function() {
+		debugger;
+		$(".all").append("<input type='text' name='text"+count+"'>");
+		count++;
+	});
+	$(".remove").on("click", function() {
+		debugger;
+		if(count > 1) {
+			$(".all")[0][count-1].remove();
+			count--; 
+		}
+	});
+</script>
+</html>

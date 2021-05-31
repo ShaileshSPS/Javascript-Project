@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title: {
+        text: "AAAAAAAAAA",
+        fontSize: 25
+      },
+      axisX:{
+        valueFormatString: "MMM" ,
+        interval: 1,
+        intervalType: "month"
+
+      },
+      axisY: {
+        title: "SSSSSSSS"
+      },
+
+      data: [
+      {
+        indexLabelFontColor: "black",
+        type: "area",
+        dataPoints: [
+
+        { x: new Date(2017, 00, 1), y: 8600},
+        { x: new Date(2017, 01, 1), y: 3800 },
+        { x: new Date(2017, 02, 1), y: 4300 , indexLabel: "MSMSMSMSMSMSMMSMS" },
+        { x: new Date(2017, 03, 1), y: 2900 },
+        { x: new Date(2017, 04, 1), y: 4100 },
+        { x: new Date(2017, 05, 1), y: 4500 },
+        { x: new Date(2017, 06, 1), y: 2900 },
+        { x: new Date(2017, 07, 1), y: 6400 },
+        { x: new Date(2017, 08, 1), y: 5300 },
+        { x: new Date(2017, 09, 1), y: 4300}
+        ]
+      }
+      ]
+    });
+
+    chart.render();
+  }
+  </script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+  <div id="chartContainer" style="height: 300px; width: 100%;">
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<script type="text/javascript">
+/*var arr = [1,2,3,4,5,6,7], target = 9;
+var outputArr = [];
+for(var i=0;i<arr.length;i++) {
+	var sum = 0;
+	var innerArr = [];
+	for(var j=i+1;j<arr.length;j++) {
+		if(sum < target) {
+			sum += arr[j];
+			innerArr.push(arr[j]);
+		}
+		else {
+			break;
+		}
+		if(sum === target) {
+			outputArr.push(innerArr);
+		}
+	}
+}
+console.log(outputArr);*/
+
+var arr = [1,2,3,4,5,6,7,8,9], target = 9;
+var outputArr = [];
+for(var i=0;i<arr.length;i++) {
+	var outerArr = [];
+	var innerArrJ = [];
+	for(j=i+1;j<arr.length;j++) {
+		var innerArrK = [];
+		if(arr[i]+ arr[j] === target) {
+			innerArrJ.push(arr[i]);
+			innerArrJ.push(arr[j]);
+		}
+		for(k=j+1;k<arr.length;k++) {
+			if(arr[i]+ arr[j] + arr[k] === target) {
+				innerArrK.push(arr[i]);
+				innerArrK.push(arr[j]);
+				innerArrK.push(arr[k]);
+			}
+		}
+		if(innerArrK.length > 0) {
+			outerArr.push(innerArrK);	
+		}
+		
+	}
+	if(innerArrJ.length > 0) {
+		outerArr.push(innerArrJ);	
+	}
+	if(outerArr.length > 0) {
+		outputArr.push(outerArr);
+	}
+}
+console.log(outputArr);
+</script>

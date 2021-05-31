@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script >
+	var topp=-1;
+	var frontt=0;
+	class Queue {
+       
+        constructor(){
+       		this.item = [];
+        }
+
+        Enqeue(element){
+		this.item[++topp]=element;
+       	}
+
+        Deqeue(){
+        	if (this.isEmpty())
+        		return "UnderFlow";
+ 		return this.item[frontt++];
+        } 
+
+        Front(){
+             if(this.isEmpty())
+             	return "No element";
+             return this.item[frontt];
+        }
+
+        isEmpty() {
+
+        	if(this.item.length == 0)
+        		return true ;
+        	else
+        		return false;
+        }
+      
+        Display(){
+        	var str = "";
+           for(var i = frontt; i <= topp; i++)
+            str += this.item[i] +" ";
+            return str;
+        }
+	}
+
+	 var queue = new Queue();
+	 queue.Enqeue(5);
+	 queue.Enqeue(6);
+	 queue.Enqeue(7);
+	 queue.Enqeue(8);
+	 console.log("Front "+queue.Front());
+	 console.log("Delete "+queue.Deqeue());
+	 console.log("Elements "+queue.Display()); 
+	</script>
+</head>
+<body>
+
+</body>
+</html>
