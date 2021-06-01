@@ -1,0 +1,28 @@
+{
+	"list" : [
+		{
+			"name" : "shailesh",
+			"company" : "xyz",
+			"position" : "abc",
+			"salary": "1000"
+		},
+		{
+			"name" : "rahul",
+			"company" : "xyz",
+			"position" : "abc",
+			"salary": "1000"
+		},
+		{
+			"name" : "shreya",
+			"company" : "xyz",
+			"position" : "abc",
+			"salary": "1000"
+		},
+		{
+			"name" : "joe",
+			"company" : "xyz",
+			"position" : "abc",
+			"salary": "1000"
+		}
+	]
+}
