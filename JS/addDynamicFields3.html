@@ -1,0 +1,193 @@
+<html>
+<head>
+<style type="text/css">
+	body {
+		margin: 1rem;
+		padding: 1rem;
+	}
+	.all {
+	    display: inline-grid;
+	} 
+	.button_div {
+	   position: fixed;
+	   top: 1rem;
+	   left: 26rem;
+	}
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+  <!-- Bootsrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>	
+<body>
+	<form name = "all" class="all">
+		<div class="demo mt-5">
+			<div class="cloneDiv">
+				<div id="div_1">
+					<input type="text" name="text" id="text_1">
+					<input type="date" name="date" id="date_1">
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="button_div">
+		<input type="button" name="add" class="add btn btn-primary" value="Add">
+		<input type="button" name="update" class="update btn btn-primary" value="Update">
+	</div>
+
+	<div class="mt-5">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Text</th>
+		      <th scope="col">Date</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Remove</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	
+		  </tbody>
+		</table>
+	</div>
+</body>
+<script type="text/javascript">
+	$(".update").hide();
+	var count = 1;
+	var tableArr = [];
+	var gEditId = "";
+	$(".add").on("click", function() {
+		if(tableArr.length === 5) {
+			alert("max you can add 5")
+		}
+		else if($(`input[id='text_${count}']`).val() !== "" && $(`input[id='date_${count}']`).val() !== "") {
+			tableArr.push({
+				"id": count,
+				"text" : $(`input[id='text_${count}']`).val(),
+				"date" : $(`input[id='date_${count}']`).val()
+			})
+			
+			var elem = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].cloneNode(true);
+			$(elem).find("[id]").add(elem).each(function() {
+		        this.id = this.id.replace(`_${this.id.split("_")[1]}`, '_' + (Number(this.id.split("_")[1])+1));
+		    });
+		    $(".cloneDiv")[0].appendChild(elem);
+
+		    count++;
+			displayTable(count, "add");
+		}
+	});
+	function remove(id) {
+		debugger;
+		tableArr = tableArr.filter(function(item){
+			if(item.id != id) {
+				return item;
+			}
+		})
+		// count--;
+		displayTable(id,"remove");
+	}
+	function displayTable(id, action) {
+		debugger;
+		toggleLastDiv(action);
+		if(action === "remove") {
+			$(`#div_${id}`).remove();
+		}
+		else if(action === "add") {
+			$(`input[id='text_${id-1}']`).attr("readonly",true);
+			$(`input[id='date_${id-1}']`).attr("readonly",true);
+			$(`input[id='text_${id}']`).val("");
+			$(`input[id='date_${id}']`).val("");
+		}
+		$("tbody").empty();
+		for(var item of tableArr) {
+		  	/*var html = "<tr>"+
+		      "<th scope='row'>"+item.id+"</th>"+
+		      "<td>"+item.text+"</td>"+
+		      "<td>"+item.date+"</td>"+
+		      "<td>"+
+			      "<button type='button' class='close' aria-label='Close' onClick='remove("+item.id+")'>"+
+  				  "<span aria-hidden='true'>&times;</span>"+
+				  "</button>"+
+			  "</td>"+
+		    "</tr>";*/
+
+		    var html = `<tr>
+		      <th scope='row'>${item.id}</th>
+		      <td>${item.text}</td>
+		      <td>${item.date}</td>
+		      <td>
+		      	  <button class="btn btn-primary" type="submit" onClick='edit(${item.id})'>Edit</button>
+			  </td>
+		      <td>
+		      	  <button class="btn btn-primary" type="submit" onClick='remove(${item.id})'>Delete</button>
+			  </td>
+		    </tr>`;
+		    $("tbody").append(html);
+		}
+	}
+	var toggleLastDiv = function(action) {
+		if(action === "add") {
+			if(tableArr.length === 5) {
+				var id = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].id;
+				$(`#${id}`).hide();
+				$(".add").hide();
+			}
+		}
+		else if(action === "remove") {
+			var id = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].id;
+			$(`#${id}`).show();
+			$(".add").show();
+		}
+		else if(action === "update") {
+			var id = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].id;
+			Array.from($(`#${id}`)[0].children).forEach((item) => {
+			    $(`#${item.id}`).attr("readonly",false);
+			})
+			$(".add").show();
+		}
+	}
+	var edit = (id) => {
+		Array.from($(".cloneDiv")[0].children).forEach(function(item) {
+		    //console.log(Array.from($(item)[0].children))
+		    Array.from($(item)[0].children).forEach((row) => {
+				//console.log(Array.from($(row))[0].id)
+		        $(`#${Array.from($(row))[0].id}`).attr("readonly","true");
+		    })
+		})
+		$(`input[id='text_${id}']`).attr("readonly",false);
+		$(`input[id='date_${id}']`).attr("readonly",false);
+		gEditId = id;
+		$(".add").hide();
+		$(".update").show();
+		displayTable(id,"edit");
+	}
+	$(".update").on("click", function() {
+		var id = gEditId;
+		Array.from($(".cloneDiv")[0].children).forEach(function(item) {
+		    //console.log(Array.from($(item)[0].children))
+		    Array.from($(item)[0].children).forEach((row) => {
+				//console.log(Array.from($(row))[0].id)
+		        $(`#${Array.from($(row))[0].id}`).attr("readonly",true);
+		    })
+		})
+		//$(`input[id='text_${id-1}']`).attr("readonly",true);
+		//$(`input[id='date_${id-1}']`).attr("readonly",true);
+		tableArr = tableArr.map(function(item){
+			if(item.id === id) {
+				item.text = $(`input[id='text_${id}']`).val();
+				item.date = $(`input[id='date_${id}']`).val();
+			}
+			return item;
+		})
+		$(".update").hide();
+		displayTable(id,"update");
+		toggleLastDiv("update");
+	})
+</script>
+</html>
