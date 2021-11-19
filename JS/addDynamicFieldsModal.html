@@ -1,0 +1,267 @@
+<html>
+<head>
+<style type="text/css">
+	body {
+		margin: 1rem;
+		padding: 1rem;
+	}
+	.all {
+	    display: inline-grid;
+	} 
+	.button_div {
+	   position: fixed;
+	   top: 1rem;
+	   left: 26rem;
+	}
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+  <!-- Bootsrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>	
+<body>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+	  Add
+	</button>
+
+<!-- Add Modal -->
+	<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Add</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form name = "all" class="all">
+				<div class="demo mt-5">
+					<div class="cloneDiv">
+						<div id="div_1">
+							<input type="text" name="text" id="text_1">
+							<input type="date" name="date" id="date_1">
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<div class="mt-5">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Text</th>
+				      <th scope="col">Date</th>
+				    </tr>
+				  </thead>
+				  <tbody class="tbody">
+		
+				  </tbody>
+				</table>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary add">Add</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<!-- Edit Modal -->
+	<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form name = "all" class="all">
+				<div class="demo mt-5">
+					<div class="cloneEditDiv">
+						
+					</div>
+				</div>
+			</form>
+
+			<div class="mt-5">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Text</th>
+				      <th scope="col">Date</th>
+				    </tr>
+				  </thead>
+				  <tbody class="tbody">
+		
+				  </tbody>
+				</table>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary update">Update</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- <div class="button_div">
+		<input type="button" name="add" class="add btn btn-primary" value="Add">
+		<input type="button" name="update" class="update btn btn-primary" value="Update">
+	</div> -->
+
+	<div class="mt-5">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Text</th>
+		      <th scope="col">Date</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Remove</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	
+		  </tbody>
+		</table>
+	</div>
+</body>
+<script type="text/javascript">
+	var count = 1;
+	var tableArr = [];
+	var gEditId = "";
+	$(".add").on("click", function() {
+		debugger;
+		if(tableArr.length === 5) {
+			alert("max you can add 5")
+		}
+		else if($(`input[id='text_${count}']`).val() !== "" && $(`input[id='date_${count}']`).val() !== "") {
+			tableArr.push({
+				"id": count,
+				"text" : $(`input[id='text_${count}']`).val(),
+				"date" : $(`input[id='date_${count}']`).val()
+			})
+			
+			var elem = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].cloneNode(true);
+			$(elem).find("[id]").add(elem).each(function() {
+		        this.id = this.id.replace(`_${this.id.split("_")[1]}`, '_' + (Number(this.id.split("_")[1])+1));
+		    });
+		    $(".cloneDiv")[0].appendChild(elem);
+
+		    count++;
+			displayTable(count, "add");
+		}
+	});
+	function remove(id) {
+		debugger;
+		tableArr = tableArr.filter(function(item){
+			if(item.id != id) {
+				return item;
+			}
+		})
+		// count--;
+		displayTable(id,"remove");
+	}
+	function displayTable(id, action) {
+		debugger;
+		toggleLastDiv(action);
+		if(action === "remove") {
+			$(`#div_${id}`).remove();
+		}
+		else if(action === "add") {
+			$(`input[id='text_${id-1}']`).attr("readonly",true);
+			$(`input[id='date_${id-1}']`).attr("readonly",true);
+			$(`input[id='text_${id}']`).val("");
+			$(`input[id='date_${id}']`).val("");
+		}
+		$("tbody").empty();
+		for(var item of tableArr) {
+		  	/*var html = "<tr>"+
+		      "<th scope='row'>"+item.id+"</th>"+
+		      "<td>"+item.text+"</td>"+
+		      "<td>"+item.date+"</td>"+
+		      "<td>"+
+			      "<button type='button' class='close' aria-label='Close' onClick='remove("+item.id+")'>"+
+  				  "<span aria-hidden='true'>&times;</span>"+
+				  "</button>"+
+			  "</td>"+
+		    "</tr>";*/
+
+		    var html = `<tr>
+		      <th scope='row'>${item.id}</th>
+		      <td>${item.text}</td>
+		      <td>${item.date}</td>
+		      <td>
+		      	  <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#edit" onClick='edit(${item.id})'>Edit</button>
+			  </td>
+		      <td>
+		      	  <button class="btn btn-primary" type="submit" onClick='remove(${item.id})'>Delete</button>
+			  </td>
+		    </tr>`;
+		    $("tbody").append(html);
+		    //-------------------------------Modal---------------------------------------------
+		    $(".tbody").empty();
+		    for(var item of tableArr) {
+
+			    var html = `<tr>
+			      <th scope='row'>${item.id}</th>
+			      <td>${item.text}</td>
+			      <td>${item.date}</td>
+			    </tr>`;
+		    	$(".tbody").append(html);
+			}
+		}
+	}
+	var toggleLastDiv = function(action) {
+		if(action === "add") {
+			if(tableArr.length === 5) {
+				var id = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].id;
+				$(`#${id}`).hide();
+			}
+		}
+		else if(action === "remove") {
+			var id = $(".cloneDiv")[0].children[$(".cloneDiv")[0].children.length-1].id;
+			$(`#${id}`).show();
+		}
+	}
+	var edit = (id) => {
+		debugger;
+		$(".cloneEditDiv").empty();
+		var html = `<div id="div_${id}">
+			<input type="text" name="text" id="edit_text_${id}">
+			<input type="date" name="date" id="edit_date_${id}">
+		</div>`;
+		$(".cloneEditDiv").append(html);
+		tableArr.map((item) => {
+			if(item.id === id) {
+				$(`input[id='edit_text_${id}']`).val(item.text);
+				$(`input[id='edit_date_${id}']`).val(item.date);
+			}
+		})
+		gEditId = id;
+		displayTable(id,"edit");
+	}
+	$(".update").on("click", function() {
+		var id = gEditId;
+		tableArr = tableArr.map(function(item){
+			if(item.id === id) {
+				item.text = $(`input[id='edit_text_${id}']`).val();
+				item.date = $(`input[id='edit_date_${id}']`).val();
+			}
+			return item;
+		})
+		displayTable(id,"update");
+	})
+</script>
+</html>
